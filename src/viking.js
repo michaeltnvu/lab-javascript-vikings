@@ -58,54 +58,28 @@ class War {
     this.saxonArmy.push(saxon);
   }
 
-  // Jasmine test not happy with refactored code block:
-  //
-  // attack(attackingArmy, defendingArmy) {
-  //   const attacker =
-  //     attackingArmy[Math.floor(Math.round() * attackingArmy.length)];
-  //   const defender =
-  //     defendingArmy[Math.floor(Math.round() * defendingArmy.length)];
-  //   const result = defender.receiveDamage(attacker.attack());
-  //   if (defender.health <= 0) {
-  //     this.removeDeadSoldier(defender, defendingArmy);
-  //   }
-  //   return result;
-  // }
+  attack(attackingArmy, defendingArmy) {
+    const attacker =
+      attackingArmy[Math.floor(Math.random() * attackingArmy.length)];
+    const defender =
+      defendingArmy[Math.floor(Math.random() * defendingArmy.length)];
+    const result = defender.receiveDamage(attacker.attack());
+    if (defender.health <= 0) {
+      this.removeDeadSoldier(defender, defendingArmy);
+    }
+    return result;
+  }
 
-  // removeDeadSoldier(soldier, army) {
-  //   army.splice(army.indexOf(soldier), 1);
-  // }
-
-  // vikingAttack() {
-  //   return this.attack(this.vikingArmy, this.saxonArmy);
-  // }
-
-  // saxonAttack() {
-  //   return this.attack(this.saxonArmy, this.vikingArmy);
-  // }
+  removeDeadSoldier(soldier, army) {
+    army.splice(army.indexOf(soldier), 1);
+  }
 
   vikingAttack() {
-    const randomSaxon =
-      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
-    const randomViking =
-      this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
-    const battleEvent = randomSaxon.receiveDamage(randomViking.attack());
-    if (randomSaxon.health <= 0) {
-      this.saxonArmy.splice(this.saxonArmy.indexOf(randomSaxon), 1);
-    }
-    return battleEvent;
+    return this.attack(this.vikingArmy, this.saxonArmy);
   }
 
   saxonAttack() {
-    const randomSaxon =
-      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
-    const randomViking =
-      this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
-    const battleEvent = randomViking.receiveDamage(randomSaxon.attack());
-    if (randomViking.health <= 0) {
-      this.vikingArmy.splice(this.vikingArmy.indexOf(randomViking), 1);
-    }
-    return battleEvent;
+    return this.attack(this.saxonArmy, this.vikingArmy);
   }
 
   showStatus() {
